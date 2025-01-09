@@ -36,3 +36,11 @@ how I have used more than 10 different code design patterns to create this game.
 
 
 # System Architecture of Creating Space Invaders Clone
+
+I have made this game using a custom 2D Engine created by my professor. It provides a system to add Sprites and render it.
+Sprites are a two-dimensional image used to represent a character, object or anything. Space Invaders contains various types of objects which are added as sprites.
+
+Space Invaders contains 4 types of enemy types Octopus, Squid, Crab and at random event an UFO. There are four shields, one SpaceShip used to shoot the aliens.
+There are also many others sprites which are used in Space Invaders.
+
+To load and manage all these sprites, I have created a architecture using different design patterns. 
