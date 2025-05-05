@@ -117,19 +117,17 @@ Proxy pattern is a structural design pattern which creates an intermediate or mi
 Proxy pattern creates a light weight class that points to a class with real game sprite with more data.
 
 Proxy pattern consists of three components:
-1. Subject Interface (SpriteBase): This is the common interface or the class from which both RealSubject and Proxy are derived, ensuring that the Proxy can be used anywhere where is Real Subject is expected.
-2. RealSubject (SpriteGame): The actual object that will perform the real operation. This contains the extensive data such as game sprite, and position, scale, name, angle, image, etc.
-3. Proxy (SpriteGameProxy): The Proxy maintains a reference to the RealSubject and can call all the methods to the RealSubject. For performance optimization, the Proxy can handle the operations which are less resource intensive such as position X and position Y and pass the values to the RealSubject.
+1. **Subject Interface (SpriteBase):** This is the common interface or the class from which both RealSubject and Proxy are derived, ensuring that the Proxy can be used anywhere where is Real Subject is expected.
+2. **RealSubject (SpriteGame):** The actual object that will perform the real operation. This contains the extensive data such as game sprite, and position, scale, name, angle, image, etc.
+3. **Proxy (SpriteGameProxy):** The Proxy maintains a reference to the RealSubject and can call all the methods to the RealSubject. For performance optimization, the Proxy can handle the operations which are less resource intensive such as position X and position Y and pass the values to the RealSubject.
 
 # 4. GAMEOBJECT FACTORIES (FACTORY PATTERN) 
 
-Challenge: Creation of similar Game Objects with different types
+**Challenge:** Creation of similar Game Objects with different types
 
-Problem: So in Space Invaders, There are three different types of aliens Squid, Crab and Octopus. These game objects differ not only in types but also in their sprites, colors, and sizes.
+**Problem:** So in Space Invaders, There are three different types of aliens Squid, Crab and Octopus. These game objects differ not only in types but also in their sprites, colors, and sizes.
 
-Solution: Using the Factory Pattern is a strategic solution to address this complexity by encapsulating the object creation process, and also making the game architecture more manageable.
-
-Solution to this problem is to create a factory and pass a type of game object that we want from it. For this problem we will use factory pattern to create different types of game objects based on the requirements passed to it.
+**Solution:** Using the Factory Pattern is a strategic solution to address this complexity by encapsulating the object creation process, and also making the game architecture more manageable.
 
 This factory abstracts away the details of the creation process from the code, and ease the game extension like adding new type of aliens and maintenance.
 
@@ -143,5 +141,32 @@ Factory pattern consists of three main components:
 2. Concrete products - these are the Squid, Crab, Octopus which are derived from Alien Category and each has its own unique sprites, colors and sizes. 
 3. Creator - this is the AlienFactory which return an Gameobject which is a type of an alien. AlienFactory abstracts the creation logic, and encapsulates the details of instantiating each type of alien.
 
+# 5. HANDLING TIME EVENTS (COMMAND PATTERN) 
+Challenge: execute a certain functionality after a time is passed
+Problem: From animating objects, movement and sound should occur after a certain time is passed. A certain functionality should be executed.
+Solution: The command pattern provides a strategic and efficient solution to this problem where we can encapsulate a function as an object. 
+
+COMMAND provides an interface that all objects derived from it must have that functionality.
+When a certain timer frame is passed that functionality is called in all the command objects.
+Command pattern is useful for delayed execution of a method.
+
+![image](https://github.com/user-attachments/assets/55006d78-553d-4f95-817f-032025079cac)
+
+Here, is the UML diagram of an example of using command pattern by integrating commands with timer events.
+
+Pattern Description:
+The Command Pattern is a behavioural design pattern that turns a request or functionality into an object containing all the information about the request. This will allow delaying or controlling a request’s execution. This is useful for operations which require a delayed
+execution, such as animations, movement, sound and other events that need to occur after a certain time has passed.
+
+There are 5 main components of Command Pattern:
+1. **Command Interface (Command Class):** This is an interface or in our case an abstract class with an abstract method that executes the command. All the concrete command classes must implement this interface.
+2. **Concrete Commands:** These are the specific implementations of the command interface. Each concrete command is responsible for particular action. In these commands we define the method to execute. For eg, SpriteAnimationCmd, MovementCmd, etc.
+
+3. **Invoker (TimerEvent):** This is the class which will invoke the command. The invoker holds a command and at a point it ask a command to execute a request. The invoker doesn’t know the concrete commands and what is being performed.
+4. **Client:** The client will connect the command object with a receiver and an action to perform.
+5. **Receiver:** The receiver is the object that knows how to perform an operation.
+
+For movement, sound and sprite animation all these must happen at certain timeframe. For moving the aliens at a certain time frame. MovementCmd will be executed when that time frame is passed. For example, I want to move the aliens at every 0.7 seconds. Then movement command will contain a data to move the aliens which will be executed when that time is passed. We are readding the timer event again at 0.7 seconds so the request in movement command will be executed every 0.7 second.
+TimerEvent class holds these commands and these timer events are managed by a TimerEventMan class which will execute a request when a certain time frame is passed.
 
 
