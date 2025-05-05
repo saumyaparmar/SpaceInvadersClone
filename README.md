@@ -198,7 +198,7 @@ The Composite Pattern consists of three main components:
 
 There are three types of aliens Squid, Crab and Octopus and these are single aliens which are leaf objects. Alien columns and alien grid are composite objects which consists of these aliens. An alien grid contains multiple alien columns and a column contains multiple aliens. Using this pattern, we treated all these objects uniformly for various purposes such as movement, collision, etc.
 
-# 6. HANDLING COLLISION BETWEEN GAME OBJECTS (OBSERVER AND VISITOR PATTERN) 
+# 7. HANDLING COLLISION BETWEEN GAME OBJECTS (OBSERVER AND VISITOR PATTERN) 
 
 **Problem:**
 In the game Space Invaders, when collisions occur between game objects (like aliens and missiles or missiles and bombs), we need to notify certain objects to perform specific actions. For example, if an alien collides with a missile, the missile and the alien both need to be removed, the score should be updated, and an explosion effect might need to be triggered. How do we manage this without cluttering the game object classes with collision-specific logic?
@@ -273,7 +273,7 @@ The visitor pattenr is a behavioural design pattern that works by allowing a vis
 This also resolves the issue of who collides with who first, whichever collides first accepts the collider and call the appropriate logic.
 
 
-# 7. MOVEMENT OF SHIP BASED ON BEHAVIOR (STATE PATTERN)
+# 8. MOVEMENT OF SHIP BASED ON BEHAVIOR (STATE PATTERN)
 
 **Problem:** We want change an object behaviour when a certain event occurs. We want to stop a ship from moving further left or right when it hits a bumper, or we want the ship to only shoot when the previous missile is destroyed.
 
@@ -294,7 +294,7 @@ There are 3 components of State Pattern:
 
 When a ship hits or collides with a right bumper or left bumper it shouldn’t move right or move left even if the inputs are observed. To overcome this,I am using state pattern to change the movement states of the ship whenever it collides with a bumper(Left or Right end). When it moves away from bumper it will automatically switch to ShipMoveBoth state which will result in ship movement in both directions. 
 
-# 8. SPAWN DIFFERENT TYPE OF BOMBS (STRATEGY PATTERN)
+# 9. SPAWN DIFFERENT TYPE OF BOMBS (STRATEGY PATTERN)
 
 **Challenge:** object of same type should have different behaviours
 
