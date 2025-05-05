@@ -6,7 +6,7 @@ In this project, I’ve recreated the iconic space shooter played in an arcarde,
 This project is made for my Grad Class. It is created using a proprietary 2d game engine by my professor. This repository will explain
 how I have used more than 10 different code design patterns to create this game. I have coded this using C# language, using irrklang for sound integration. 
 
-Objective of this project is to create and manage a robust, scalable, medium size application(150-200 files of code) using different code design patterns.
+The objective of this project is to design and manage a robust and scalable medium-sized application (comprising 150-200 code files) by utilizing various design patterns.
 
 This here is the detailed document about the design patterns used in creation of this game clone.
 
