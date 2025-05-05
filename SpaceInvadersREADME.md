@@ -3,8 +3,10 @@
 Get ready to defend Earth from waves of relentless alien invaders in this nostalgic remake of the classic arcade game, Space Invaders! 
 In this project, I’ve recreated the iconic space shooter played in an arcarde, preserving the original’s intense gameplay and adding some exciting enhancements along the way.
 
-This project is made as a project for my Grad Class. It is created using a custom 2d game engine by my professor. This repository will explain
+This project is made for my Grad Class. It is created using a proprietary 2d game engine by my professor. This repository will explain
 how I have used more than 10 different code design patterns to create this game. I have coded this using C# language, using irrklang for sound integration.
+
+This here is the detailed document about the design patterns used in creation of this game clone.
 
 ## Features:
 + Classic Space Invaders gameplay
@@ -78,7 +80,7 @@ In practical terms, when managers like SpriteGameMan  need to create or add an o
 
 
 
-# ITERATING OF NODES (ITERATOR PATTERN) 
+# 2. ITERATING OF NODES (ITERATOR PATTERN) 
 ![image](https://github.com/user-attachments/assets/2167181c-8f21-48d8-baaf-927ce27a32d0)
 
 Here, is the UML diagram of iterator pattern that I have used. 
@@ -102,5 +104,21 @@ Now the abstract methods are First(), Current(), IsDone(), Next():
 3. IsDone(): This will return a Boolean value that is the traversal is finished or not.
 4. Next(): This will iterate to the next element of the data structure.
 
+# 3. SPRITE PROXIES (PROXY PATTERN) 
+![image](https://github.com/user-attachments/assets/07793a3e-c023-46de-b8a2-1291474f60aa)
+
+Problem: For Space Invaders,The SpriteGame class holds a lot of data (e.g., position, scale, name, angle, image), but only position (x, y) is frequently updated for movement. Continuously managing this data can lead to performance inefficiencies.
+
+The Proxy pattern provides a solution to this problem by creating a substitute for the SpriteGame class, by focusing only on the essential data such as position X and position Y.
+We need to create SpriteGameProxy class which points to the real SpriteGame class.
+
+Proxy pattern is a structural design pattern which creates an intermediate or middle object which also controls the access to the object and also what data can be passed to the real object.
+
+Proxy pattern creates a light weight class that points to a class with real game sprite with more data.
+
+Proxy pattern consists of three components:
+1. Subject Interface (SpriteBase): This is the common interface or the class from which both RealSubject and Proxy are derived, ensuring that the Proxy can be used anywhere where is Real Subject is expected.
+2. RealSubject (SpriteGame): The actual object that will perform the real operation. This contains the extensive data such as game sprite, and position, scale, name, angle, image, etc.
+3. Proxy (SpriteGameProxy): The Proxy maintains a reference to the RealSubject and can call all the methods to the RealSubject. For performance optimization, the Proxy can handle the operations which are less resource intensive such as position X and position Y and pass the values to the RealSubject.
 
 
