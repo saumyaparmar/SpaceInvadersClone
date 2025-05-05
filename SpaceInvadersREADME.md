@@ -121,4 +121,27 @@ Proxy pattern consists of three components:
 2. RealSubject (SpriteGame): The actual object that will perform the real operation. This contains the extensive data such as game sprite, and position, scale, name, angle, image, etc.
 3. Proxy (SpriteGameProxy): The Proxy maintains a reference to the RealSubject and can call all the methods to the RealSubject. For performance optimization, the Proxy can handle the operations which are less resource intensive such as position X and position Y and pass the values to the RealSubject.
 
+# 4. GAMEOBJECT FACTORIES (FACTORY PATTERN) 
+
+Challenge: Creation of similar Game Objects with different types
+
+Problem: So in Space Invaders, There are three different types of aliens Squid, Crab and Octopus. These game objects differ not only in types but also in their sprites, colors, and sizes.
+
+Solution: Using the Factory Pattern is a strategic solution to address this complexity by encapsulating the object creation process, and also making the game architecture more manageable.
+
+Solution to this problem is to create a factory and pass a type of game object that we want from it. For this problem we will use factory pattern to create different types of game objects based on the requirements passed to it.
+
+This factory abstracts away the details of the creation process from the code, and ease the game extension like adding new type of aliens and maintenance.
+
+Here, is a basic code of how a factory creates an object:
+![image](https://github.com/user-attachments/assets/7059c62a-56db-435e-86fe-79cd476bf36c)
+
+**Pattern Description:**
+This pattern is a creational design pattern and its primary objective is to offer a framework that abstracts the process of creation of objects and it can change the functionalities based on the specification passed.
+Factory pattern consists of three main components:
+1. Abstract products - this is the alien category that this object should be an alien.
+2. Concrete products - these are the Squid, Crab, Octopus which are derived from Alien Category and each has its own unique sprites, colors and sizes. 
+3. Creator - this is the AlienFactory which return an Gameobject which is a type of an alien. AlienFactory abstracts the creation logic, and encapsulates the details of instantiating each type of alien.
+
+
 
