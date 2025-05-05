@@ -169,4 +169,27 @@ There are 5 main components of Command Pattern:
 For movement, sound and sprite animation all these must happen at certain timeframe. For moving the aliens at a certain time frame. MovementCmd will be executed when that time frame is passed. For example, I want to move the aliens at every 0.7 seconds. Then movement command will contain a data to move the aliens which will be executed when that time is passed. We are readding the timer event again at 0.7 seconds so the request in movement command will be executed every 0.7 second.
 TimerEvent class holds these commands and these timer events are managed by a TimerEventMan class which will execute a request when a certain time frame is passed.
 
+# 6. HIERARCHY BETWEEN GAME OBJECTS (COMPOSITE PATTERN) 
+**Challenge:** Hierarchy of different game objects
+
+**Problem:** Managing a hierarchy of game objects such as aliens, comprising of squid, crab and octopus and to handle individual aliens and groups of aliens (columns and grid) uniformly.
+To handle operations such as movement, collision detection which are needed to be applied consistently across single aliens and groups without making codebase repetitive and with complex conditional statements.
+
+**Solution:** The Composite Pattern solves this problem by treating both individual aliens (squid, crab, octopus) and their compositions (columns and grid) through a common interface or a class.
+This will allow operations to be applied uniformly, whether it’s a single alien or a complex group.
+![image](https://github.com/user-attachments/assets/53d18702-75c5-46d7-b2c0-7c1ee4122fa2)
+
+Here, is the UML Diagram where I have used Composite Pattern for aliens.
+
+**Pattern Description:**
+The Composite Pattern is a structural design pattern that provides a way to compose objects into tree structures and then treat them as individual objects. This pattern is useful for creating hierarchy of objects where individual objects (leaf nodes) can be treated uniformly with the composition of objects (Composite Nodes).
+
+The Composite Pattern consists of three main components:
+
+1. **Component:** This is an interface or like in our case an abstract class defining all the common operations for both simple and composite objects. It will ensure that all objects are treated equally.
+2. **Leaf:** A leaf has no children, each having their own specific behaviours. For eg, Squid, Crab, Octopus.
+3. **Composite:** It is an object that has child components which can be either other composites or it can be leaf objects. Composites will implement the component interface and also define the behaviours for the components having children (Composites). For example, alien columns and alien grid are composites, where a grid can contain multiple columns, and each column can contain multiple aliens.
+
+There are three types of aliens Squid, Crab and Octopus and these are single aliens which are leaf objects. Alien columns and alien grid are composite objects which consists of these aliens. An alien grid contains multiple alien columns and a column contains multiple aliens. Using this pattern, we treated all these objects uniformly for various purposes such as movement, collision, etc.
+
 
