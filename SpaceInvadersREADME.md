@@ -61,16 +61,16 @@ This is the UML diagram of the classes and how they are connected. This is manag
 
 Now, here the ManBase manages a reserve and active pool of nodes required at certain time. This pattern as you can see is called Object Pooling.
 
-Challenge: Creation and Destruction of objects, especially in large numbers or in a rapid succession.
+**Challenge:** Creation and Destruction of objects, especially in large numbers or in a rapid succession.
 As there is a frequent need of creating and destroying instances, like gameobjects, sprites. Constantly creating and destroying these instances can lead to slowing down the system and cause performance issues.
 
-The object pooling pattern solves this problem by creating a set of initialized objects—known as a "pool"—and then traversing through them, reusing objects from the pool rather than creating new ones. When an object is no longer needed, it is not destroyed, it is resetted and returned to the pool for future use.
+**Solution:** The object pooling pattern solves this problem by creating a set of initialized objects—known as a "pool"—and then traversing through them, reusing objects from the pool rather than creating new ones. When an object is no longer needed, it is not destroyed, it is resetted and returned to the pool for future use.
 
-1. Pool Manager (ManBase and SpriteGameMan): The pool manager class is responsible for controlling access to the pooled objects. For example, ManBase is an abstract class that provides abstract methods for managing the pool, such as baseAdd, baseRemove, baseFind, etc. SpriteGameMan is a class derived from ManBase, which will specifically handle sprite objects.
+1. **Pool Manager (ManBase and SpriteGameMan):** The pool manager class is responsible for controlling access to the pooled objects. For example, ManBase is an abstract class that provides abstract methods for managing the pool, such as baseAdd, baseRemove, baseFind, etc. SpriteGameMan is a class derived from ManBase, which will specifically handle sprite objects.
    
-2. Poolable Objects (SpriteGame and DLink): These are the objects stored in the pool. The NodeBase class serves as an abstract base for all objects that can be managed in the pool, whereas DLink is a class that would be used in a pool, inheriting from NodeBase.
+2. **Poolable Objects (SpriteGame and DLink):** These are the objects stored in the pool. The NodeBase class serves as an abstract base for all objects that can be managed in the pool, whereas DLink is a class that would be used in a pool, inheriting from NodeBase.
 
-3. Iterator (DLinkIterator): An iterator pattern is used with object pools for it to traverse through the objects in the pool.
+3. **Iterator (DLinkIterator):** An iterator pattern is used with object pools for it to traverse through the objects in the pool.
 
 ### This object pooling architecture typically involves maintaining two lists:
 1. Reserve List: A list of pre-loaded, inactive objects that are ready to be used.
@@ -94,20 +94,20 @@ To maintain the homogeneous treatment of these objects while respecting their un
 
 
 Iterator Pattern consists of two main key components:
-1. Iterator Interface (Iterator): This class is either an interface of an abstract class, all classes derived from this class must define these methods.
-2. Iterators: These are the classes which implement the methods from the interface or the abstract classes. These method implementations would vary from data structure to data structure.
+1. **Iterator Interface (Iterator):** This class is either an interface of an abstract class, all classes derived from this class must define these methods.
+2. **Iterators:** These are the classes which implement the methods from the interface or the abstract classes. These method implementations would vary from data structure to data structure.
    
 Now the abstract methods are First(), Current(), IsDone(), Next():
 
-1. First(): This will return the first element in the data structure and also reset the traversal.
-2. Current(): This will return the current element where the traversal is at.
-3. IsDone(): This will return a Boolean value that is the traversal is finished or not.
-4. Next(): This will iterate to the next element of the data structure.
+1. **First():** This will return the first element in the data structure and also reset the traversal.
+2. **Current():** This will return the current element where the traversal is at.
+3. **IsDone():** This will return a Boolean value that is the traversal is finished or not.
+4. **Next():** This will iterate to the next element of the data structure.
 
 # 3. SPRITE PROXIES (PROXY PATTERN) 
 ![image](https://github.com/user-attachments/assets/07793a3e-c023-46de-b8a2-1291474f60aa)
 
-Problem: For Space Invaders,The SpriteGame class holds a lot of data (e.g., position, scale, name, angle, image), but only position (x, y) is frequently updated for movement. Continuously managing this data can lead to performance inefficiencies.
+**Problem:** For Space Invaders,The SpriteGame class holds a lot of data (e.g., position, scale, name, angle, image), but only position (x, y) is frequently updated for movement. Continuously managing this data can lead to performance inefficiencies.
 
 The Proxy pattern provides a solution to this problem by creating a substitute for the SpriteGame class, by focusing only on the essential data such as position X and position Y.
 We need to create SpriteGameProxy class which points to the real SpriteGame class.
@@ -137,9 +137,9 @@ Here, is a basic code of how a factory creates an object:
 **Pattern Description:**
 This pattern is a creational design pattern and its primary objective is to offer a framework that abstracts the process of creation of objects and it can change the functionalities based on the specification passed.
 Factory pattern consists of three main components:
-1. Abstract products - this is the alien category that this object should be an alien.
-2. Concrete products - these are the Squid, Crab, Octopus which are derived from Alien Category and each has its own unique sprites, colors and sizes. 
-3. Creator - this is the AlienFactory which return an Gameobject which is a type of an alien. AlienFactory abstracts the creation logic, and encapsulates the details of instantiating each type of alien.
+1. **Abstract products** - this is the alien category that this object should be an alien.
+2. **Concrete products** - these are the Squid, Crab, Octopus which are derived from Alien Category and each has its own unique sprites, colors and sizes. 
+3. **Creator** - this is the AlienFactory which return an Gameobject which is a type of an alien. AlienFactory abstracts the creation logic, and encapsulates the details of instantiating each type of alien.
 
 # 5. HANDLING TIME EVENTS (COMMAND PATTERN) 
 Challenge: execute a certain functionality after a time is passed
@@ -191,5 +191,79 @@ The Composite Pattern consists of three main components:
 3. **Composite:** It is an object that has child components which can be either other composites or it can be leaf objects. Composites will implement the component interface and also define the behaviours for the components having children (Composites). For example, alien columns and alien grid are composites, where a grid can contain multiple columns, and each column can contain multiple aliens.
 
 There are three types of aliens Squid, Crab and Octopus and these are single aliens which are leaf objects. Alien columns and alien grid are composite objects which consists of these aliens. An alien grid contains multiple alien columns and a column contains multiple aliens. Using this pattern, we treated all these objects uniformly for various purposes such as movement, collision, etc.
+
+# 6. HANDLING COLLISION BETWEEN GAME OBJECTS (OBSERVER AND VISITOR PATTERN) 
+
+**Problem:**
+In the game Space Invaders, when collisions occur between game objects (like aliens and missiles or missiles and bombs), we need to notify certain objects to perform specific actions. For example, if an alien collides with a missile, the missile and the alien both need to be removed, the score should be updated, and an explosion effect might need to be triggered. How do we manage this without cluttering the game object classes with collision-specific logic?
+
+**Solution:**
+To solve this, using the Observer Pattern and Visitor Pattern can be useful. These two patterns help decouple the game objects from the logic that handles collisions and interactions. With the Observer Pattern, when a collision occurs, we notify the relevant game objects to perform the necessary actions. The Visitor Pattern is then used to define how different objects (like missiles and aliens) should interact with each other during a collision.
+
+**Pattern Description:**
+
+**Observer Pattern**
+
+**Problem:** When a collision happens, we need to notify the right game objects (e.g., remove the missile, remove the alien, update the score) and trigger the correct actions. But, we don’t want the game objects to know about each other’s collision logic directly. We need a way to handle this decoupled from the object classes.
+
+**Solution:** The Observer Pattern allows us to define observers that listen for collision events. When a collision occurs, the game objects (observers) get notified and perform their specific actions, such as removing the missile or alien, triggering an explosion, or updating the score.
+
+![image](https://github.com/user-attachments/assets/41c00936-31db-42e5-b77a-6ac8075c6831)
+
+Here, is the UML Diagram of observers acting based on collision between objects.
+
+**Key Components:**
+1. **Subject (Collision Manager or ColSubject):** This is the manager that checks for collisions and maintains a list of observers. When a collision happens, it notifies all registered observers.
+
+2. **Observer (ColObserver):** This is the base class that defines a notification interface. Concrete observers (like AlienRemoveObserver, BombRemoveObserver) implement this interface to perform the actions when notified.
+
+3. **Concrete Observers:** These are the actual game objects (e.g., aliens, missiles) that react to the collision event and carry out the necessary actions like removing an alien or missile, updating the score, and so on.
+How It Works:
+The Collision Manager detects when a collision occurs between objects (e.g., alien and missile). It then notifies the observers, who will take the appropriate actions (e.g., remove the missile, remove the alien, increase the score).
+
+For example, if an alien collides with a missile, the following might happen:
+
+* Remove the missile.
+
+* Remove the alien.
+
+* Update the player’s score.
+
+* Trigger the explosion effect.
+
+* Prepare the ship to fire another missile.
+  
+This approach allows the game objects to be decoupled from the collision logic, making the system more flexible and maintainable.
+
+
+**Visitor Pattern**
+
+Problem: Implement collision handling between various game objects without spiking up the object classes with interaction-specific logic. For example, the collision between an alien and a missile might differ very much from that between a bomb and a missile.
+
+**Solution:** The Visitor pattern provides a solution to this problem by decoupling the interaction logic from the objects. Instead of including the collision handling within the game objects, the Visitor pattern allows these objects to accept a visitor that performs operations on them. This visitor is used to handle the specific interactions between different types of objects, which will result in a great management of object collision.
+
+The visitor pattenr is a behavioural design pattern that works by allowing a visitor to define operations or behaviours that are applied to objects of different classes without requiring those classes to implement all the specifics of those operations. (e.g., how a missile interacts with an alien, or how a missile interacts with a bomb).
+
+**Key Components:**
+
+1. **Visitor (ColVisitor):** This is an abstract class which acts like a template as it lays out the visits that can be performed, but since here I am using it as virtual methods so only respective visitors need to be defined in the derived classes.
+
+2. **Concrete Visitor:** These are the classes that implement the interaction logic for specific object pairs (e.g., MissileVisitor, AlienVisitor).
+
+3. **Element Interface:** This provides an accept method that allows the game object to accept a visitor, letting the visitor interact with the object.
+
+4. **Concrete Elements:** These are the actual game objects (e.g., AlienRoot, MissileRoot) that implement the accept method and allow the visitor to perform the necessary operations on them.
+
+**How It Works:**
+
+1. Each game object (like AlienRoot) accepts a visitor (like MissileRoot), and the visitor checks for collisions between them.
+
+2. If a collision is detected, the visitor performs the appropriate actions (e.g., remove the missile and the alien, update the score, etc.).
+
+3. The visitor can handle interactions at multiple levels, recursively checking for collisions within groups of objects, such as between subgroups of aliens and missiles.
+
+4. By using the Visitor Pattern, we can manage complex interactions between objects without embedding the logic directly inside the game objects themselves.
+
+This also resolves the issue of who collides with who first, whichever collides first accepts the collider and call the appropriate logic.
 
 
