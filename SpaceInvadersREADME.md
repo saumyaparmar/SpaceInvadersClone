@@ -267,3 +267,24 @@ The visitor pattenr is a behavioural design pattern that works by allowing a vis
 This also resolves the issue of who collides with who first, whichever collides first accepts the collider and call the appropriate logic.
 
 
+# 7. MOVEMENT OF SHIP BASED ON BEHAVIOR (STATE PATTERN)
+
+**Problem:** We want change an object behaviour when a certain event occurs. We want to stop a ship from moving further left or right when it hits a bumper, or we want the ship to only shoot when the previous missile is destroyed.
+
+**SOLUTION:** To solve this problem state pattern provides a way to alter its behaviour without changing the execution of it. State pattern can be used to create different type of states which will contain methods which are common to all states and will have different functionalities in them. For ship when it fires of a missile it will change its missile state which will not have the fire functionality implemented.
+
+![image](https://github.com/user-attachments/assets/6416b0c9-f387-47d0-87a4-c631849de1d7)
+
+Here, is the UML Diagram for the state pattern implemented for the ship movement.
+
+**Pattern Description:**
+
+The State Pattern is a behavioural design pattern that allows an object to change or modify its behaviour when something changes. This change in behaviour is achieved by switching the object’s current state to a different one, so it will make the object’s behaviour depend on the its state. This pattern is useful where an object needs to change its behaviour when there is a change in internal condition or external events without changing that object’s class.
+
+There are 3 components of State Pattern:
+1. **Context (Ship):** This class represents an object whose behaviour needs be to be changed. This will point to a current state and will execute a state specific behaviour to the current state object.
+2. **State Interface (ShipState or ShipMovementState):** This interface contains methods which must be implemented by all the concrete states. These methods represent the behaviour of the object when it is in that state.
+3. **Concrete States:** These classes are derived from the state interface and implement those methods and provide the specific behaviours associated with a state in the context. For example, ShipMoveBoth state will move in both left and right direction it executes behaviours which contain that.
+
+When a ship hits or collides with a right bumper or left bumper it shouldn’t move right or move left even if the inputs are observed. To overcome this,I am using state pattern to change the movement states of the ship whenever it collides with a bumper(Left or Right end). When it moves away from bumper it will automatically switch to ShipMoveBoth state which will result in ship movement in both directions. 
+
