@@ -75,8 +75,8 @@ As there is a frequent need of creating and destroying instances, like gameobjec
 3. **Iterator (DLinkIterator):** An iterator pattern is used with object pools for it to traverse through the objects in the pool.
 
 ### This object pooling architecture typically involves maintaining two lists:
-1. Reserve List: A list of pre-loaded, inactive objects that are ready to be used.
-2. Active List: The list of currently active objects that are in use within the game.
+1. **Reserve List:** A list of pre-loaded, inactive objects that are ready to be used.
+2. **Active List:** The list of currently active objects that are in use within the game.
 In practical terms, when managers like SpriteGameMan  need to create or add an object, they will check for availability in the reserve list. If the reserve list is empty, the manager creates new objects as specified by the reserveGrow. Once new objects are created or an existing object is called, it is moved to the active list. The transition between these lists is done by the ListBase class, which is pointed to by both the active and reserve lists. An iterator associated with these lists allows for efficient traversal through the objects.
 
 
@@ -111,7 +111,7 @@ Now the abstract methods are First(), Current(), IsDone(), Next():
 
 **Problem:** For Space Invaders,The SpriteGame class holds a lot of data (e.g., position, scale, name, angle, image), but only position (x, y) is frequently updated for movement. Continuously managing this data can lead to performance inefficiencies.
 
-The Proxy pattern provides a solution to this problem by creating a substitute for the SpriteGame class, by focusing only on the essential data such as position X and position Y.
+**Solution:** The Proxy pattern provides a solution to this problem by creating a substitute for the SpriteGame class, by focusing only on the essential data such as position X and position Y.
 We need to create SpriteGameProxy class which points to the real SpriteGame class.
 
 Proxy pattern is a structural design pattern which creates an intermediate or middle object which also controls the access to the object and also what data can be passed to the real object.
@@ -144,9 +144,11 @@ Factory pattern consists of three main components:
 3. **Creator** - this is the AlienFactory which return an Gameobject which is a type of an alien. AlienFactory abstracts the creation logic, and encapsulates the details of instantiating each type of alien.
 
 # 5. HANDLING TIME EVENTS (COMMAND PATTERN) 
-Challenge: execute a certain functionality after a time is passed
-Problem: From animating objects, movement and sound should occur after a certain time is passed. A certain functionality should be executed.
-Solution: The command pattern provides a strategic and efficient solution to this problem where we can encapsulate a function as an object. 
+**Challenge:** execute a certain functionality after a time is passed.
+
+**Problem:** From animating objects, movement and sound should occur after a certain time is passed. A certain functionality should be executed.
+
+**Solution:** The command pattern provides a strategic and efficient solution to this problem where we can encapsulate a function as an object. 
 
 COMMAND provides an interface that all objects derived from it must have that functionality.
 When a certain timer frame is passed that functionality is called in all the command objects.
@@ -240,7 +242,7 @@ This approach allows the game objects to be decoupled from the collision logic, 
 
 **Visitor Pattern**
 
-Problem: Implement collision handling between various game objects without spiking up the object classes with interaction-specific logic. For example, the collision between an alien and a missile might differ very much from that between a bomb and a missile.
+**Problem:** Implement collision handling between various game objects without spiking up the object classes with interaction-specific logic. For example, the collision between an alien and a missile might differ very much from that between a bomb and a missile.
 
 **Solution:** The Visitor pattern provides a solution to this problem by decoupling the interaction logic from the objects. Instead of including the collision handling within the game objects, the Visitor pattern allows these objects to accept a visitor that performs operations on them. This visitor is used to handle the specific interactions between different types of objects, which will result in a great management of object collision.
 
