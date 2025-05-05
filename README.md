@@ -331,6 +331,6 @@ When a bomb is dropped, the game calls the fall() method on the bomb's FallingSt
 The bomb's fall is determined by the algorithm of the currently assigned strategy, enabling dynamic behaviour.
 The Strategy pattern allows for dynamic changes in the game’s mechanics.
 
-
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 These are most of the design patterns which I have used for the game architecture. I hope this helps you to understand how various design patterns can be used in a realtime application.
