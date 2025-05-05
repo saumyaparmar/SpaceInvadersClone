@@ -4,7 +4,9 @@ Get ready to defend Earth from waves of relentless alien invaders in this nostal
 In this project, I’ve recreated the iconic space shooter played in an arcarde, preserving the original’s intense gameplay and adding some exciting enhancements along the way.
 
 This project is made for my Grad Class. It is created using a proprietary 2d game engine by my professor. This repository will explain
-how I have used more than 10 different code design patterns to create this game. I have coded this using C# language, using irrklang for sound integration.
+how I have used more than 10 different code design patterns to create this game. I have coded this using C# language, using irrklang for sound integration. 
+
+Objective of this project is to create and manager a robust, scalable, medium size application(150-200 files of code) using different code design patterns.
 
 This here is the detailed document about the design patterns used in creation of this game clone.
 
@@ -39,7 +41,7 @@ This here is the detailed document about the design patterns used in creation of
 
 # System Architecture of Creating Space Invaders Clone
 
-I have made this game using a custom 2D Engine created by my professor. Engine provides a system to add Sprites and render it.
+I have made this game using a proprietary 2D Engine created by my professor. Engine provides a system to add Sprites and render it.
 Sprites are a two-dimensional image used to represent a character, object or anything. Space Invaders contains various types of objects which are added as sprites.
 
 Space Invaders contains 4 types of enemy types Octopus, Squid, Crab and at random event an UFO. There are four shields, one SpaceShip used to shoot the aliens.
@@ -288,3 +290,43 @@ There are 3 components of State Pattern:
 
 When a ship hits or collides with a right bumper or left bumper it shouldn’t move right or move left even if the inputs are observed. To overcome this,I am using state pattern to change the movement states of the ship whenever it collides with a bumper(Left or Right end). When it moves away from bumper it will automatically switch to ShipMoveBoth state which will result in ship movement in both directions. 
 
+# 8. SPAWN DIFFERENT TYPE OF BOMBS (STRATEGY PATTERN)
+
+**Challenge:** object of same type should have different behaviours
+
+**Problem:** There are three types of bombs Straight, ZigZag, Dagger which have their unique falling strategies. Each bomb type needs to have its own falling behaviours.
+
+**Solution:** The Strategy Pattern provides a solution to this problem by encapsulating the varying bomb falling behaviours into separate strategy classes that can be interchanged within a single bomb class. This pattern allows the bomb class to delegate a falling behaviour to a strategy object, so it will separate the bomb looks and bomb behaviour.
+
+![image](https://github.com/user-attachments/assets/74b695bc-fc25-4918-a774-63af90d5677a)
+
+Here, is the UML Diagram of the implementation of Strategy pattern for using different types of bombs
+
+**Pattern Description:**
+
+The Strategy Pattern is a behavioural design pattern that enables an object to change its behaviour at time of creation by associating it with different strategy objects. This pattern encapsulates the different behaviours with separate strategy classes. The Bomb class points to a strategy object that represents a falling behaviour.
+
+This pattern contains 3 components:
+
+1. **Context (Bomb):** This is the class or object whose behaviour can vary. It contains a reference to a strategy object and then it will delegate the implementation of the behaviour to this strategy. In our case bomb class acts as the context which contains the reference to a FallStrategy that will define how the bomb behaves when it is dropped.
+
+2. **Strategies:** These are the classes that encapsulates different algorithms or behaviours. All these fall strategies FallStraight, FallDagger, FallZigZag, implements a common behaviour from FallStrategy.
+   
+3. **Client:** It will set or will switch the strategy in the context object. This will decide which strategy to use based on the situation.
+The Strategy Pattern allows dynamic interchange of bomb behaviours without modifying the Bomb class.
+
+In Space Invaders, the strategy pattern is used for bomb falling patterns. There are three types of bomb ZigZag, Dagger, Straight and all of these have different falling behaviours. To implement this, I am using strategy pattern.
+
+FallStrategy abstract class is created which contains an abstract method fall(), that each strategy will implement according to its own behaviour. 
+
+There are three strategies, FallZigZag, FallDagger, FallStraight all derived from FallStrategies will implement fall().
+
+Bomb class has a reference to a FallingStrategy and at the time of creation, each bomb is assigned specific falling strategy.
+When a bomb is dropped, the game calls the fall() method on the bomb's FallingStrategy object. 
+
+The bomb's fall is determined by the algorithm of the currently assigned strategy, enabling dynamic behaviour.
+The Strategy pattern allows for dynamic changes in the game’s mechanics.
+
+
+
+These are most of the design patterns which I have used for the game architecture. I hope this helps you to understand how various design patterns can be used in a realtime application.
